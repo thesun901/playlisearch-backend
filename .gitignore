@@ -21,6 +21,7 @@ venv
 docs.zip
 archive.zip
 .env
+artist_cache.json
 
 # vim temporary files
 *~

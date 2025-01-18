@@ -20,7 +20,7 @@ def upgrade() -> None:
     op.create_table(
         'categories',
         sa.Column('id', sa.Integer, primary_key=True, autoincrement=True),
-        sa.Column('name', sa.String, nullable=False),
+        sa.Column('name', sa.String, nullable=False, unique=True),
     )
 
     # Create Playlists table
@@ -28,7 +28,7 @@ def upgrade() -> None:
         'playlists',
         sa.Column('id', sa.String, primary_key=True),  # Spotify URI
         sa.Column('name', sa.String, nullable=False),
-        sa.Column('image_url', sa.String, nullable=False),
+        sa.Column('image_url', sa.String, nullable=True),
         sa.Column('description', sa.Text, nullable=False),
         sa.Column('songs_count', sa.Integer, nullable=False),
         sa.Column('followers_count', sa.Integer, nullable=False),
@@ -39,9 +39,9 @@ def upgrade() -> None:
         'songs',
         sa.Column('id', sa.String, primary_key=True),  # Spotify URI
         sa.Column('name', sa.String, nullable=False),
-        sa.Column('image_url', sa.String, nullable=False),
+        sa.Column('image_url', sa.String, nullable=True),
         sa.Column('artist_name', sa.String, nullable=False),
-        sa.Column('artist_uri', sa.String, nullable=False),
+        sa.Column('artist_id', sa.String, nullable=False),
         sa.Column('duration', sa.Integer, nullable=False),  # Milliseconds
     )
 

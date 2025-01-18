@@ -4,8 +4,7 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-dotenv_path = Path('./.env')
-load_dotenv(dotenv_path)
+load_dotenv()
 # Replace this with your actual database URL
 DATABASE_URL = os.getenv('DATABASE_URL')
 
@@ -27,3 +26,4 @@ def get_db():
         yield db
     finally:
         db.close()
+

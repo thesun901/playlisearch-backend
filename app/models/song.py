@@ -9,7 +9,7 @@ class Song(Base):
     name = Column(String, nullable=False)
     image_url = Column(String, nullable=False)
     artist_name = Column(String, nullable=False)
-    artist_uri = Column(String, nullable=False)
+    artist_id = Column(String, nullable=False)
     duration = Column(Integer, nullable=False)  # Duration in milliseconds
 
     # Relationship to associate songs with playlists
