@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 load_dotenv()
-# Replace this with your actual database URL
 DATABASE_URL = os.getenv('DATABASE_URL')
 
 # Create the database engine

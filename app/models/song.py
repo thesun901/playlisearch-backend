@@ -7,7 +7,7 @@ class Song(Base):
     __tablename__ = "songs"
     id = Column(String, primary_key=True)  # Text ID (Spotify URI)
     name = Column(String, nullable=False)
-    image_url = Column(String, nullable=False)
+    image_url = Column(String, nullable=True)
     artist_name = Column(String, nullable=False)
     artist_id = Column(String, nullable=False)
     duration = Column(Integer, nullable=False)  # Duration in milliseconds

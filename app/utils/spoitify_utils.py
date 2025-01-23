@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
-from spotify_models import PlaylistDTO, TrackDTO
+from app.utils.spotify_models import PlaylistDTO, TrackDTO
 import json
 
 
@@ -32,12 +32,6 @@ CACHE_FILE = Path("artist_cache.json")
 artist_cache: Dict[str, List[str]] = {}
 
 def categorize_playlist(playlist_tracks: List[dict]) -> List[str]:
-    """
-    Categorizes a playlist based on the most common categories of its tracks' artists.
-
-    :param playlist_tracks: List of track dictionaries from Spotify API.
-    :return: List of top 5 categories for the playlist.
-    """
     category_counter = Counter()
 
     for track_item in playlist_tracks:
@@ -48,8 +42,8 @@ def categorize_playlist(playlist_tracks: List[dict]) -> List[str]:
             category_counter.update(artist_categories)
 
     print(category_counter)
-    # Get the top 5 most common categories
-    top_categories = [category for category, _ in category_counter.most_common(5)]
+    # Get the top 6 most common categories
+    top_categories = [category for category, _ in category_counter.most_common(6)]
     return top_categories
 
 
@@ -66,10 +60,6 @@ def save_cache():
         json.dump(artist_cache, file, indent=4)
 
 def fetch_artist_categories(artist_id: str) -> List[str]:
-    """
-    Fetches categories for a given artist from Spotify API.
-    Uses cache if the data is already fetched so we won't abuse API too much
-    """
     if artist_id in artist_cache:
         return artist_cache[artist_id]  # Return cached categories
 
@@ -96,11 +86,11 @@ def fetch_playlists_data(phrase: str, amount: int) -> List[PlaylistDTO]:
 
             for track_item in playlist_tracks:
                 track = track_item['track']
-                if track is not None and not track['episode']:
+                if track is not None and not 'episode' not in track.keys() and 'album' in track.keys():
                     tracks.append(TrackDTO(
                         id=track['id'],
                         name=track['name'],
-                        image_url=track['album']['images'][0]['url'] if track['album']['images'] else None,
+                        image_url=track['album']['images'][0]['url'] if 'images' in track['album'].keys() else None,
                         artist_name=track['artists'][0]['name'],
                         artist_id=track['artists'][0]['id'],
                         duration=track['duration_ms']
@@ -125,4 +115,4 @@ def fetch_playlists_data(phrase: str, amount: int) -> List[PlaylistDTO]:
     return items
 
 if __name__ == '__main__':
-    print(fetch_playlists_data('happy', 40))
+    fetch_playlists_data('cool', 100)

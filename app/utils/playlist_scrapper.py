@@ -1,3 +1,4 @@
+#there is used psycopg2, because I had problems with inserting by using sqlalchemy
 import psycopg2
 from psycopg2.extras import execute_batch
 from typing import List
@@ -93,6 +94,6 @@ def save_to_database(playlists: List[PlaylistDTO]):
 
 
 if __name__ == '__main__':
-    keyword = 'indie' #change this manually
-    amount = 100
+    keyword = 'neat' #change this manually
+    amount = 50
     save_to_database((fetch_playlists_data(keyword, amount)))
