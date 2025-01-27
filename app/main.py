@@ -95,7 +95,6 @@ def get_playlists_by_categories(
             for playlist in playlists
         ]
 
-        print('Request made')
         return {"playlists": result}
 
     except Exception as e:

@@ -94,6 +94,6 @@ def save_to_database(playlists: List[PlaylistDTO]):
 
 
 if __name__ == '__main__':
-    keyword = 'neat' #change this manually
-    amount = 50
+    keyword = 'tea' #change this manually
+    amount = 100
     save_to_database((fetch_playlists_data(keyword, amount)))

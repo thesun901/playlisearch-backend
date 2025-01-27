@@ -36,7 +36,7 @@ def categorize_playlist(playlist_tracks: List[dict]) -> List[str]:
 
     for track_item in playlist_tracks:
         track = track_item.get('track')
-        if track and not track['episode']:
+        if track and 'episode' in track.keys() and not track['episode']:
             artist_id = track['artists'][0]['id']
             artist_categories = fetch_artist_categories(artist_id)
             category_counter.update(artist_categories)
