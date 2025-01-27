@@ -7,17 +7,16 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session, joinedload
 from typing import List, Dict
 from app.database import SessionLocal
-from app.models import Playlist, Category, CategoryPlaylist, Song, SongPlaylist
+from app.models import Playlist, Category, CategoryPlaylist, SongPlaylist
 from app.utils.spoitify_utils import fetch_artist_categories
-from app.utils.spotify_models import PlaylistDTO, TrackDTO
 
 app = FastAPI()
 
 logger = logging.getLogger(__name__)
 
 def get_db():
-    dbObj = SessionLocal()
-    db = dbObj()
+    db_obj = SessionLocal()
+    db = db_obj()
     try:
         yield db
     except SQLAlchemyError as e:
@@ -104,7 +103,6 @@ def get_playlists_by_categories(
 @app.get("/top-categories")
 def get_top_categories(
     artist_ids: List[str] = Query(..., description="List of artist IDs"),
-    db: Session = Depends(get_db)
 ):
     try:
 

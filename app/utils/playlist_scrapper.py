@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 from spoitify_utils import fetch_playlists_data
-from spotify_models import PlaylistDTO, TrackDTO
+from spotify_models import PlaylistDTO
 
 dotenv_path = Path('./.env')
 load_dotenv()
@@ -94,6 +94,6 @@ def save_to_database(playlists: List[PlaylistDTO]):
 
 
 if __name__ == '__main__':
-    keyword = 'tea' #change this manually
+    keyword = 'favourites' #change this manually
     amount = 100
     save_to_database((fetch_playlists_data(keyword, amount)))

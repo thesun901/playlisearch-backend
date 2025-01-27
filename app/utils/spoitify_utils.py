@@ -5,7 +5,7 @@ import spotipy
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+from spotipy.oauth2 import SpotifyOAuth
 from app.utils.spotify_models import PlaylistDTO, TrackDTO
 import json
 
@@ -90,7 +90,8 @@ def fetch_playlists_data(phrase: str, amount: int) -> List[PlaylistDTO]:
                     tracks.append(TrackDTO(
                         id=track['id'],
                         name=track['name'],
-                        image_url=track['album']['images'][0]['url'] if 'images' in track['album'].keys() else None,
+                        image_url=track['album']['images'][0]['url'] if 'images' in track['album'].keys()
+                                                                        and len(track['album']['images']) >= 1 else None,
                         artist_name=track['artists'][0]['name'],
                         artist_id=track['artists'][0]['id'],
                         duration=track['duration_ms']
